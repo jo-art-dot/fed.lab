@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="FEED LAB: تجربة تفاعلية تكشف كيف تتعلم خوارزميات التوصية من سلوكك."><meta name="theme-color" content="#07070d"><meta property="og:title" content="FEED LAB"><meta property="og:description" content="كلنا بدأنا من نفس المكان. هل سنرى جميعًا العالم نفسه؟"><title>FEED LAB</title>
+<style>
+:root{--bg:#07070d;--fg:#f5f5fa;--ac:#6d5dfc;--mu:#9a9ab0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root{--bg:#07070d}}
+*{box-sizing:border-box;margin:0}html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{height:100%;background:var(--bg);color:var(--fg);font-family:"Segoe UI",Tahoma,"Noto Naskh Arabic",Arial,sans-serif;overflow:hidden}
+.scr{position:absolute;inset:0;display:none;opacity:0;transition:opacity .6s}.scr.on{display:block}.scr.vis{opacity:1}
+.brand{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));inset-inline-start:22px;letter-spacing:.35em;font-size:12px;color:var(--mu);font-family:Arial,sans-serif;z-index:5}
+#s1{display:none;place-items:center;text-align:center;padding:24px;background:radial-gradient(60% 50% at 50% 40%,#2a1f7a55,transparent)}
+#s1.on{display:grid}
+#s1 h1{font-size:clamp(34px,8vw,72px);font-weight:800;line-height:1.2}
+#s1 p{color:var(--mu);margin:16px 0 36px;font-size:clamp(16px,3.5vw,22px)}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:999px;padding:15px 36px;font:inherit;font-size:17px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 0 40px #6d5dfc66}
+.btn:hover{transform:scale(1.04)}.btn.ghost{background:transparent;border:1px solid #ffffff44;box-shadow:none}
+#s2{background:#000}
+.stage{position:relative;height:100%;max-width:460px;margin:0 auto;overflow:hidden;touch-action:none;background:#0b0b14}
+.card{position:absolute;inset:0;overflow:hidden;transition:transform .5s cubic-bezier(.2,.8,.2,1)}.card::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(115deg,#ffffff09 0 2px,transparent 2px 7px)}.card.v2 svg.art{inset:0 0 auto 0;height:64%;clip-path:ellipse(80% 100% at 50% 0)}.card.v2::after{background:linear-gradient(transparent 50%,#0008)}
+.card.in{transform:translateY(100%)}.card.out{transform:translateY(-100%)}
+.card svg.art{position:absolute;inset:0;width:100%;height:100%}
+.card::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,#000000e6)}
+.txt{position:absolute;z-index:2;bottom:calc(28px + env(safe-area-inset-bottom,0px));inset-inline:22px 92px}
+.tag{display:inline-block;font-size:12px;padding:4px 12px;border-radius:99px;background:#ffffff1c;backdrop-filter:blur(8px);margin-bottom:12px}
+.txt h2{font-size:22px;line-height:1.5;font-weight:700}.txt p{margin-top:10px;font-size:14.5px;line-height:1.8;color:#d6d6e4}
+.acts{position:absolute;z-index:3;bottom:calc(30px + env(safe-area-inset-bottom,0px));inset-inline-end:16px;display:flex;flex-direction:column;gap:18px}
+.ab{width:52px;background:none;border:0;color:#fff;font:inherit;font-size:11px;cursor:pointer;display:grid;place-items:center;gap:4px}
+.ab i{width:48px;height:48px;border-radius:50%;background:#ffffff1f;backdrop-filter:blur(10px);display:grid;place-items:center;transition:.2s}
+.ab:active i{transform:scale(.88)}.ab.act i{background:var(--ac);box-shadow:0 0 24px var(--ac)}
+.ab svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pb{position:absolute;z-index:4;top:calc(10px + env(safe-area-inset-top,0px));inset-inline:14px;height:3px;background:#ffffff2a;border-radius:3px;overflow:hidden}
+.pb b{display:block;height:100%;width:0;background:#fff}.pb b.go{animation:pb 6s linear forwards}@keyframes pb{to{width:100%}}
+.cnt{position:absolute;z-index:4;top:calc(22px + env(safe-area-inset-top,0px));inset-inline-end:16px;font:12px Arial;color:#ffffffaa}
+.hint{position:absolute;z-index:6;left:50%;top:42%;transform:translateX(-50%);font-size:14px;padding:10px 18px;border-radius:99px;background:#000a;transition:opacity .6s;pointer-events:none;white-space:nowrap}
+svg .fl{animation:fl 5s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+svg .sp{animation:sp 30s linear infinite;transform-box:fill-box;transform-origin:center}
+@keyframes fl{to{transform:translateY(-26px) scale(1.06)}}@keyframes sp{to{transform:rotate(360deg)}}
+#s3{overflow-y:auto;background:radial-gradient(70% 40% at 50% 0,#3a2aa044,transparent),var(--bg)}
+.wrap{max-width:640px;margin:0 auto;padding:90px 24px 70px}
+.wrap h1{font-size:clamp(32px,7vw,52px);line-height:1.25}.wrap .sub{color:var(--mu);font-size:18px;margin:14px 0 36px;line-height:1.8}
+.fade{opacity:0;transform:translateY(14px);animation:up .8s forwards}@keyframes up{to{opacity:1;transform:none}}
+.lab{font-size:13px;color:var(--mu);margin:26px 0 10px}
+.strip{display:flex;gap:4px}.strip span{flex:1;height:38px;border-radius:6px;transform:scaleY(0);transform-origin:bottom;animation:gr .5s forwards}
+.strip.me span.d{outline:2px solid #fff;outline-offset:2px}@keyframes gr{to{transform:none}}
+.facts p{margin:18px 0;line-height:1.9;font-size:16px}.facts b{color:#fff}.facts span{color:var(--mu)}
+.chip{display:inline-block;padding:3px 12px;border-radius:99px;margin:2px 0 2px 6px;font-size:14px}
+.note{margin:34px 0;padding:18px 20px;border-inline-start:3px solid var(--ac);font-size:17px;line-height:1.9}
+#s4{overflow-y:auto;background:#f3efe6;color:#17141f}
+#s4 .wrap{padding-top:70px}#s4 h1{font-size:clamp(38px,9vw,68px);line-height:1.2}
+#s4 .brand{color:#6b6458}
+.q{margin:22px 0 44px;font-size:19px;line-height:2;color:#3b3647}
+.pt{display:flex;gap:18px;padding:22px 0;border-top:1px solid #17141f22;opacity:0;transform:translateY(20px);transition:.8s}
+.pt.s{opacity:1;transform:none}.pt em{font:normal 800 30px Arial;color:#6d5dfc;min-width:40px}.pt p{font-size:18px;line-height:1.9}
+.cl{margin:50px 0 24px;font-size:clamp(22px,5vw,30px);line-height:1.7;font-weight:800}
+.cl2{font-size:19px;line-height:1.9;color:#3b3647;margin-bottom:34px}
+#s4 .btn{box-shadow:none}#s4 .btn.ghost{border-color:#17141f55;color:#17141f}
+
+.top{position:absolute;z-index:6;top:calc(28px + env(safe-area-inset-top,0px));inset-inline:14px;display:flex;align-items:center;gap:10px}
+.top button{background:#0007;backdrop-filter:blur(10px);color:#fff;border:1px solid #ffffff30;border-radius:99px;padding:7px 14px;font:inherit;font-size:12px;cursor:pointer}
+.top input{width:84px;accent-color:#fff;display:none}.top.on input{display:block}.cnt{position:static!important;margin-inline-start:auto}
+.pb b.go{animation:pb var(--d,6s) linear infinite}
+.card.inb{transform:translateY(-100%)}.card.outb{transform:translateY(100%)}
+.txt{bottom:calc(80px + env(safe-area-inset-bottom,0px))!important;inset-inline:18px 84px!important}
+.acts{bottom:calc(72px + env(safe-area-inset-bottom,0px))!important;gap:14px!important}
+.ab em{font-style:normal;font-size:11px}
+.acc{display:flex;align-items:center;gap:10px;margin-bottom:12px}.av{width:38px;height:38px;border-radius:50%;border:2px solid #fff}.acc b{font-size:15px}
+.fo{font-size:12px;border:1px solid #fff9;border-radius:6px;padding:2px 10px}
+.snd{display:flex;gap:8px;align-items:center;font-size:12px;margin-top:12px;overflow:hidden;white-space:nowrap;color:#e8e8f4}
+.snd svg{flex:none;width:15px;height:15px;fill:none;stroke:#fff;stroke-width:2}.snd span{display:inline-block;animation:mq 10s linear infinite}
+@keyframes mq{from{transform:translateX(40%)}to{transform:translateX(-110%)}}
+.disc{width:44px;height:44px;border-radius:50%;margin:4px auto 0;border:9px solid #111;animation:sp 5s linear infinite}
+.pz{position:absolute;z-index:6;left:50%;top:50%;transform:translate(-50%,-50%);padding:12px 22px;border-radius:99px;background:#000a;opacity:0;transition:opacity .25s;pointer-events:none;font-size:15px}
+.ds{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ds.open{-webkit-line-clamp:unset;display:block}.ht{color:#9db4ff}.mo{background:none;border:0;color:#ffffffbb;font:inherit;font-size:13px;padding:4px 0 0;cursor:pointer}
+.nav{position:absolute;z-index:5;bottom:0;inset-inline:0;height:58px;display:flex;align-items:center;justify-content:space-around;background:#000d;font-size:11px;color:#aaa;backdrop-filter:blur(12px)}
+.nav .plus{width:42px;height:28px;border-radius:9px;background:linear-gradient(90deg,#6d5dfc,#c05dfc)}.nav span:first-child{color:#fff}
+.br{display:grid;grid-template-columns:130px 1fr 46px;gap:10px;align-items:center;margin:10px 0;font-size:13px}.br i{height:10px;border-radius:6px;display:block}.br b{font-weight:400;color:var(--mu)}
+</style></head><body>
+<div class="brand">FEED LAB</div>
+<section class="scr on vis" id="s1"><div><h1>كلنا بدأنا من نفس المكان.</h1><p>لكن هل سنرى جميعًا العالم نفسه؟</p><button class="btn" id="go">اكتشف بنفسك</button></div></section>
+<section class="scr" id="s2"><div class="stage" id="stage"><div class="pb"><b id="bar"></b></div>
+<div class="top"><button id="snd">تفعيل الصوت</button><input type="range" id="vol" min="0" max="100" value="60" aria-label="مستوى الصوت"></div>
+<div class="pz" id="pz">متوقف مؤقتًا</div><div class="hint" id="hint">اسحب للأعلى للمنشور التالي</div>
+<div class="acts">
+<button class="ab" id="bl"><i><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z"/></svg></i><em id="nl"></em></button>
+<button class="ab" id="bc"><i><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-5.5A8 8 0 1 1 21 12z"/></svg></i><em id="nc"></em></button>
+<button class="ab" id="bs"><i><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg></i><em>حفظ</em></button>
+<button class="ab" id="bh"><i><svg viewBox="0 0 24 24"><path d="M4 12v7h16v-7M12 16V3M7 8l5-5 5 5"/></svg></i><em>مشاركة</em></button>
+<div class="disc" id="disc"></div></div>
+<nav class="nav"><span>الرئيسية</span><span>اكتشف</span><span class="plus"></span><span>الرسائل</span><span>أنا</span></nav></div></section>
+<section class="scr" id="s3"><div class="wrap" id="rv"></div></section>
+<section class="scr" id="s4"><div class="wrap">
+<h1>من الذي يريدك أن تبقى؟</h1>
+<p class="q">منصات التواصل لا تعرض لك المحتوى عشوائيًا. أنظمة التوصية تحاول توقع المحتوى الذي قد يجذب انتباهك ويجعلك تستمر في المشاهدة.</p>
+<div class="pt"><em>01</em><p>المنصات تتنافس على جذب انتباه المستخدم.</p></div>
+<div class="pt"><em>02</em><p>التوصيات الشخصية تساعد على عرض محتوى يتوقع النظام أنه سيهم المستخدم.</p></div>
+<div class="pt"><em>03</em><p>كلما استمر المستخدم في التفاعل، توفرت للنظام إشارات أكثر عن اهتماماته.</p></div>
+<div class="pt"><em>04</em><p>الوقت والانتباه مهمان في نماذج الأعمال التي تعتمد على الإعلانات، فزيادة وقت الاستخدام قد تزيد فرص عرض الإعلانات.</p></div>
+<div class="pt"><em>05</em><p>لذلك لدى المنصات حافز تجاري لجعل تجربة التصفح جذابة والاستمرار فيها. وهذا لا يعني أن كل منصة تعمل بالنموذج التجاري نفسه.</p></div>
+<p class="cl">لم يكن الموجز مجرد مجموعة مقاطع… لقد كان نظامًا يتعلم كيف يجذب انتباهك.</p>
+<p class="cl2">في المرة القادمة التي تفتح فيها تطبيقًا، اسأل نفسك: لماذا ظهر لي هذا المحتوى تحديدًا؟</p>
+<button class="btn ghost" id="again">أعد التجربة من البداية</button>
+</div></section>
+<script>
+const C={sci:['تجارب علمية',190],inv:['اختراعات وهندسة',215],spc:['الفضاء',262],car:['السيارات',8],spo:['الرياضة',140],gam:['ألعاب وألغاز',300],nat:['الطبيعة',120],art:['التصميم والفنون',328],fas:['الموضة والجمال',348],fun:['حقائق غريبة',45],tec:['التقنية والذكاء الاصطناعي',228],med:['الطب والعلوم',168],mus:['الموسيقى',275],cul:['الثقافة والترفيه',22]};
+const K=['sci','mus','fas','inv','art','nat','spo','gam','spc','car','tec','med','fun','cul'];
+const D={
+sci:[['ماذا يحدث إذا وضعت جسمًا ساخنًا في النيتروجين السائل؟','حرارة عالية تلتقي ببرودة تقارب ناقص 196 درجة، فيغلي السائل بعنف ويتصاعد بخار كثيف.'],['لماذا لا تسقط القطرة عن سطح العملة؟','التوتر السطحي يشد جزيئات الماء معًا فتتشكل قبة صغيرة تتحدى الجاذبية.'],['كيف تنمو البلورات من محلول عادي خلال ساعات؟','الجزيئات تترتب في نمط منتظم متكرر فتتكوّن أشكال هندسية دقيقة.']],
+inv:[['كيف تستطيع الطائرات الضخمة الطيران؟','شكل الجناح يجعل الهواء أسرع فوقه، فينشأ فرق ضغط يرفع مئات الأطنان.'],['كيف يقف الجسر المعلّق دون أن ينهار؟','الكابلات تنقل الأحمال إلى الأبراج، وكل شدّ يوازنه ضغط في مكان آخر.'],['اختراع بسيط يحوّل ماء البحر إلى ماء صالح للشرب','التقطير الشمسي يبخّر الماء ويترك الملح خلفه.']],
+spc:[['ماذا سترى لو وقفت على المريخ عند الغروب؟','تبدو الشمس أصغر، ويميل لون الغروب إلى الأزرق.'],['لماذا لحلقات زحل هذا الشكل المسطح؟','الاصطدامات والجاذبية رتّبت ملايين القطع الجليدية في مستوى واحد رفيع.'],['كم يبلغ حجم أكبر نجم عرفه البشر؟','بعض النجوم أكبر من مدار المشتري، ومع ذلك تبدو نقاطًا صغيرة.']],
+car:[['كيف تعمل محركات السيارات الكهربائية؟','مجال مغناطيسي دوّار يدفع الجزء المتحرك، فتنطلق العجلات بعزم فوري.'],['ما سر الصوت العميق للمحرك ثماني الأسطوانات؟','ترتيب الاحتراق في الأسطوانات يصنع نبضات متتالية تشبه الإيقاع.'],['كيف تتوقف سيارة سريعة خلال ثوانٍ؟','المكابح تحوّل الحركة إلى حرارة هائلة داخل الأقراص.']],
+spo:[['كيف تنحني الكرة في الهواء رغم أنك لا تلمسها؟','الدوران يخلق فرق ضغط حول الكرة فيغيّر مسارها.'],['كيف يدرّب العدّاؤون أجسامهم على السرعة القصوى؟','تمارين قصيرة مكثفة تعلّم العضلات والأعصاب العمل بتناغم أسرع.'],['ماذا يحدث لجسمك في آخر دقائق الماراثون؟','العضلات تستنزف مخزونها، والدماغ يتفاوض مع الجسد ليكمل.']],
+gam:[['هل يستطيع عقلك اكتشاف الخطأ في هذه الصورة؟','ثوانٍ قليلة من الملاحظة قد تكشف ما يفوت معظم الناس.'],['لغز الجسور السبعة الذي غيّر الرياضيات','سؤال بسيط عن نزهة في مدينة قديمة أسّس علم الرسوم البيانية.'],['كيف يفكر الحاسوب حين يلعب الشطرنج؟','يتخيل آلاف الاحتمالات قبل أن يختار نقلة واحدة.']],
+nat:[['كيف تجد الحيتان طريقها عبر المحيطات؟','أغانٍ منخفضة التردد تسافر مسافات هائلة تحت الماء.'],['لماذا يغيّر الأخطبوط لونه في لحظة؟','خلايا لونية دقيقة تتمدد وتنكمش بأوامر من الأعصاب.'],['ماذا يفعل النمل حين يغمره الفيضان؟','يتشابك معًا ليبني طوفًا حيًا فوق سطح الماء.']],
+art:[['لماذا تبدو بعض الألوان دافئة وأخرى باردة؟','الدماغ يربط الألوان بالنار والشمس أو بالجليد والسماء، فتتغير مشاعرنا.'],['كيف يختار المصممون الخط المناسب للشعار؟','كل خط له شخصية: الحدّة توحي بالدقة، والانحناء يوحي بالود.'],['سر الصورة الفوتوغرافية التي لا تنسى','قاعدة الأثلاث تضع الموضوع بعيدًا عن المنتصف فيصبح الإطار أكثر حياة.']],
+fas:[['لماذا يبدو تنسيق ثلاثة ألوان فقط أنيقًا دائمًا؟','لون أساسي ولون مساعد ولمسة جريئة صغيرة تصنع توازنًا يريح العين.'],['لماذا تتغير صيحات الموضة كل بضعة أعوام؟','الجديد يصبح مألوفًا فيملّه الناس، فيعود القديم بلمسة مختلفة.'],['كيف يُبنى عطر يتغير مع مرور الوقت؟','نغمات خفيفة تتبخر أولًا، ثم يظهر قلب العطر، ثم قاعدته الثقيلة.']],
+fun:[['هل تعلم أن العسل لا يفسد أبدًا؟','قلة الماء وحموضته الطبيعية تمنعان نمو البكتيريا لآلاف السنين.'],['لماذا تبدو الدقيقة طويلة حين تنتظر؟','الانتباه إلى الوقت يجعل الدماغ يحصي كل لحظة منه.'],['لماذا الموز مشعّ قليلًا؟','يحتوي البوتاسيوم، وجزء صغير منه نظير مشعّ بكمية غير مؤذية.']],
+tec:[['كيف يتعلم الذكاء الاصطناعي تمييز القطط من الكلاب؟','يرى ملايين الأمثلة ويعدّل أرقامه الداخلية بعد كل خطأ.'],['كيف تبني الطابعة ثلاثية الأبعاد قطعة معقدة؟','تضيف طبقات رقيقة جدًا فوق بعضها حتى يظهر الشكل كاملًا.'],['كيف يعرف هاتفك أنك رفعته لتنظر إليه؟','مستشعرات الحركة تقرأ الاهتزاز والميل عشرات المرات في الثانية.']],
+med:[['ماذا يفعل جهاز المناعة حين يدخل فيروس جسمك؟','خلايا متخصصة تتعرف عليه وتصنع أجسامًا مضادة تلتصق به.'],['كيف يرى الرنين المغناطيسي داخل الجسم؟','مجال قوي يحرّك ذرات الماء، وتلتقط الأجهزة إشاراتها لتبني صورة.'],['لماذا نتثاءب، ولماذا ينتقل بين الناس؟','لا يزال العلماء يناقشون السبب، وقد يرتبط بتبريد الدماغ والتعاطف.']],
+mus:[['لماذا يبدو صوت الغيتار الكهربائي مختلفًا عن الأكوستيك؟','الوشائع المغناطيسية تلتقط اهتزاز الأوتار وتحوّله إلى إشارة كهربائية تُضخَّم وتُشكَّل.'],['ماذا يحدث داخل استوديو التسجيل قبل أن تسمع الأغنية؟','عزل الصوت والميكروفونات والمزج يمنحان كل آلة مكانها في الصورة الصوتية.'],['كيف تتعرف الأذن على النوع الموسيقي بعد ثوانٍ فقط؟','الإيقاع والمقام وتوزيع الآلات تصنع بصمة تميّز كل نوع.']],
+cul:[['أي أماكن في العالم تبدو كأنها خارج الزمن؟','أزقة حجرية وألوان دافئة تجعل بعض المدن تبدو كلوحات حيّة.'],['ما أغرب التقاليد التي تحتفل بها الشعوب كل عام؟','مهرجانات الألوان والنار والطعام تجمع الناس حول طقوس لا تتشابه.'],['لماذا نحب الأفلام التي نعرف نهايتها؟','التكرار يمنحنا شعورًا بالأمان ويتيح لنا ملاحظة تفاصيل جديدة.']]};
+const P=[];K.forEach(k=>D[k].forEach(d=>P.push({id:P.length,c:k,t:d[0],d:d[1]})));
+const ORD=[];for(let r=0;r<3;r++)K.forEach((k,i)=>ORD.push(i*3+r));
+const N=10,FIX=5,W={skip:-.5,part:.2,full:1,like:2.5,re:1.2,save:3};
+const rng=s=>()=>(s=s*16807%2147483647)/2147483647;
+const f=(n,fn)=>Array.from({length:n},(_,i)=>fn(i)).join('');
+function art(c,id,h,v=0){const r=rng(id*97+13),a=`hsl(${h} 90% 62%)`,b=`hsl(${(h+40)%360} 95% 70%)`;let o='';
+const R=(m,x=0)=>x+r()*m;
+const M={
+spc:()=>f(40,()=>`<circle cx="${R(400)}" cy="${R(700)}" r="${R(1.6,.4)}" fill="#fff" opacity="${R(.7,.3)}"/>`)+`<g class="fl"><circle cx="${R(120,140)}" cy="${R(120,230)}" r="${R(50,80)}" fill="${a}"/><ellipse cx="200" cy="300" rx="150" ry="28" fill="none" stroke="${b}" stroke-width="5" transform="rotate(-18 200 300)"/></g>`,
+sci:()=>f(22,()=>`<circle class="fl" style="animation-delay:-${R(5)}s" cx="${R(400)}" cy="${R(600,60)}" r="${R(26,5)}" fill="none" stroke="${a}" stroke-width="2.5"/>`)+`<path d="M130 520h140l-30-150v-90h-80v90z" fill="${a}" opacity=".35"/>`,
+inv:()=>f(4,i=>`<circle class="sp" style="animation-duration:${20+i*9}s" cx="200" cy="300" r="${60+i*45}" fill="none" stroke="${i%2?b:a}" stroke-width="${3+i}" stroke-dasharray="${10+i*8} ${14+i*6}"/>`)+`<circle cx="200" cy="300" r="22" fill="${a}"/>`,
+car:()=>f(16,()=>`<rect x="${R(300)}" y="${R(600,40)}" width="${R(160,40)}" height="3" rx="2" fill="${a}" opacity="${R(.6,.25)}"/>`)+`<circle class="sp" cx="200" cy="330" r="110" fill="none" stroke="${b}" stroke-width="12" stroke-dasharray="40 14"/><circle cx="200" cy="330" r="38" fill="${a}"/>`,
+spo:()=>`<circle class="fl" cx="200" cy="270" r="105" fill="${a}"/><path d="M95 270q105-70 210 0M95 270q105 70 210 0M200 165v210" fill="none" stroke="#0008" stroke-width="5"/>`+f(5,i=>`<path d="M${20+i*70} 640q60-${70+i*10} 120 0" fill="none" stroke="${b}" stroke-width="2" opacity=".5"/>`),
+gam:()=>f(48,i=>`<rect x="${(i%6)*62+14}" y="${((i/6)|0)*62+60}" width="54" height="54" rx="10" fill="${r()>.55?a:'#ffffff14'}" opacity="${R(.5,.5)}"/>`),
+nat:()=>`<circle class="fl" cx="${R(150,120)}" cy="190" r="70" fill="${b}"/>`+f(3,i=>`<path d="M0 ${360+i*70}q${R(120,60)} -${R(120,60)} 220 -20t200 ${R(40)}V700H0z" fill="hsl(${h} ${60-i*10}% ${30-i*7}%)"/>`),
+art:()=>f(7,()=>`<circle class="fl" style="animation-delay:-${R(5)}s;mix-blend-mode:screen" cx="${R(360,20)}" cy="${R(450,60)}" r="${R(110,50)}" fill="hsl(${(h+R(80))%360} 85% 55%)" opacity=".55"/>`),
+fas:()=>f(10,i=>`<rect class="fl" style="animation-delay:-${R(5)}s" x="${i*40+6}" y="${R(120,60)}" width="26" height="${R(420,160)}" rx="13" fill="${i%2?a:b}" opacity="${R(.5,.4)}"/>`),
+fun:()=>`<text class="fl" x="200" y="470" font-size="430" text-anchor="middle" fill="${a}" opacity=".35" font-family="Arial">؟</text>`+f(12,()=>`<circle cx="${R(400)}" cy="${R(700)}" r="${R(6,2)}" fill="${b}" opacity=".5"/>`),
+tec:()=>{const p=Array.from({length:14},()=>[R(340,30),R(520,60)]);return p.map((q,i)=>i?`<line x1="${p[i-1][0]}" y1="${p[i-1][1]}" x2="${q[0]}" y2="${q[1]}" stroke="${a}" opacity=".5"/>`:'').join('')+p.map(q=>`<circle class="fl" cx="${q[0]}" cy="${q[1]}" r="${R(8,4)}" fill="${b}"/>`).join('')},
+mus:()=>f(26,i=>{const q=R(230,50);return `<rect class="fl" style="animation-delay:-${R(4)}s;animation-duration:${2+R(2)}s" x="${i*15+6}" y="${300-q/2}" width="9" height="${q}" rx="4.5" fill="${i%3?a:b}"/>`})+`<circle cx="200" cy="570" r="95" fill="#000b" stroke="${a}"/><circle class="sp" cx="200" cy="570" r="60" fill="none" stroke="${b}" stroke-dasharray="4 9"/><circle cx="200" cy="570" r="16" fill="${a}"/>`,
+cul:()=>f(9,i=>{const q=R(260,120);return `<rect x="${i*46-4}" y="${640-q}" width="40" height="${q}" fill="hsl(${h} 60% ${12+i%3*6}%)"/>`})+f(34,()=>`<rect x="${R(400)}" y="${R(300,340)}" width="4" height="6" fill="${b}" opacity=".7"/>`)+`<circle class="fl" cx="${R(200,100)}" cy="150" r="60" fill="${b}" opacity=".85"/>`,
+med:()=>`<polyline fill="none" stroke="${a}" stroke-width="5" points="0,320 90,320 120,230 160,410 200,290 240,320 400,320"/>`+f(10,()=>`<circle class="fl" cx="${R(400)}" cy="${R(600,40)}" r="${R(40,12)}" fill="${b}" opacity=".18"/>`)};
+return `<svg class="art" style="${v==1?`transform:scale(1.7) translate(${r()>.5?'-':''}9%,7%)`:''}" viewBox="0 0 400 700" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${h} 70% 20%)"/><stop offset="1" stop-color="hsl(${(h+50)%360} 80% 6%)"/></linearGradient></defs><rect width="400" height="700" fill="url(#g${id})"/>${M[c]()}<g opacity=".22" fill="none" stroke="#fff">${f(5,()=>`<circle cx="${R(400)}" cy="${R(700)}" r="${R(170,40)}"/>`)}</g></svg>`}
+const $=s=>document.querySelector(s);
+let S,busy=false;
+const HD={sci:'lab.moments',mus:'studio.notes',fas:'street.palette',inv:'build.daily',art:'frame.and.form',nat:'wild.minutes',spo:'move.clips',gam:'brain.arcade',spc:'orbit.daily',car:'garage.cuts',tec:'circuit.lab',med:'body.science',fun:'odd.facts',cul:'city.stories'};
+const SN={sci:'نبض المختبر',mus:'Studio Loop 01',fas:'إيقاع الشارع',inv:'ورشة الليل',art:'ألوان هادئة',nat:'همس الغابة',spo:'Fast Break',gam:'Level Up',spc:'مدار بعيد',car:'Engine Room',tec:'Circuit Dreams',med:'نبض القلب',fun:'Did You Know',cul:'مدينة الغروب'};
+const DUR=id=>[8,12,16,10,14,20][(id*5+(id/3|0))%6];
+const AU={sci:[196,'sine',320,[0,4,7,11]],mus:[220,'triangle',240,[0,3,5,7,10]],fas:[262,'sine',280,[0,4,9]],inv:[110,'sawtooth',300,[0,7,12]],art:[247,'triangle',360,[0,2,4,7,9]],nat:[174,'sine',420,[0,5,7,12]],spo:[165,'square',200,[0,7,0,10]],gam:[294,'square',260,[0,2,5,9]],spc:[130,'sine',500,[0,7,14,19]],car:[98,'sawtooth',180,[0,0,7,5]],tec:[330,'square',220,[0,3,7,12]],med:[207,'sine',380,[0,3,7,10]],fun:[349,'triangle',300,[0,4,5,9]],cul:[233,'triangle',340,[0,2,7,9]]};
+let ac,mg,sq,on=false;
+function note(fr,w,t,v){const o=ac.createOscillator(),g=ac.createGain();o.type=w;o.frequency.value=fr;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+.28);o.connect(g);g.connect(mg);o.start(t);o.stop(t+.3)}
+function stop(){clearInterval(sq)}
+function play(){stop();if(!on||S.paused||!S.rec)return;const a=AU[S.rec.c],id=S.rec.id;let i=0;sq=setInterval(()=>{const t=ac.currentTime,n=a[3][(i*3+id)%a[3].length]+(i%8==7?12:0);note(a[0]*2**(n/12),a[1],t,.12);if(i%4==0)note(a[0]/2,'sine',t,.2);i++},a[2])}
+function init(){S={seen:[],int:{},cnt:{},hist:{},recs:[],path:[],ptr:0,rec:null,paused:false,pt:0,lk:0};K.forEach(k=>{S.int[k]=0;S.cnt[k]={seen:0}})}
+init();
+function nextId(){const un=P.filter(p=>!S.seen.includes(p.id));
+ if(S.seen.length<FIX)return ORD.find(i=>!S.seen.includes(i));
+ const last=S.seen.slice(-2).map(i=>P[i].c),k=S.seen.length-FIX;
+ if(k%4===3){const m=Math.min(...K.map(c=>S.cnt[c].seen)),pool=un.filter(p=>S.cnt[p.c].seen===m);if(pool.length)return pool[0].id}
+ let best=null,bs=-1e9;un.forEach(p=>{let s=S.int[p.c]-(last.includes(p.c)?1.2:0)-S.cnt[p.c].seen*.3-p.id*1e-4;if(s>bs){bs=s;best=p}});return best.id}
+function score(r){const dm=r.dur*1000,ratio=r.watch/dm;r.cmp=(r.loops>0||r.reach>=dm*.98)?1:r.reach/dm;r.rp=r.loops+r.manual+r.rev;
+ let d=1.6*Math.min(1,ratio)-.5;if(r.watch<1500)d-=.5;
+ d+=.9*Math.min(r.rp,3)+(r.like?2:0)+(r.save?2.5:0)+.3*Math.min(r.cm+r.sh,2);
+ if(r.pauses&&r.watch>2500)d+=.15*Math.min(r.pauses,2);
+ const h=S.hist[r.c]||(S.hist[r.c]=[]),p=h.filter(x=>x>0).length,n=h.filter(x=>x<0).length;
+ if(d>0&&p>=2)d*=1.2;if(d<0&&n>=2)d*=1.25;h.push(d);r.d=d;S.int[r.c]+=d}
+function leave(){const r=S.rec;if(!r)return;if(S.paused)r.pauseMs+=Date.now()-S.pt;score(r);S.rec=null;stop()}
+const kf=n=>n>=1000?(n/1000).toFixed(1)+'K':String(n);
+const cur=()=>document.querySelector('.card:not(.out):not(.outb)');
+function show(id,dir,rev){const p=P[id],h=C[p.c][1],old=cur(),el=document.createElement('div'),v=(id*7+(id/3|0))%3,lk=Math.floor(rng(id*31+5)()*90000+2000);
+ el.className='card '+(dir<0?'inb':'in')+' v'+v;el.style.background=`hsl(${h} 80% 38%)`;
+ el.innerHTML=art(p.c,id,h,v)+`<div class="txt"><div class="acc"><i class="av" style="background:linear-gradient(135deg,hsl(${h} 90% 60%),hsl(${(h+60)%360} 90% 40%))"></i><b>@${HD[p.c]}</b><span class="fo">متابعة</span></div><h2>${p.t}</h2><p class="ds">${p.d} <span class="ht">#${C[p.c][0].replace(/ /g,'_')} #FEEDLAB #${HD[p.c].replace(/\./g,'_')}</span></p><button class="mo">المزيد</button><div class="snd"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg><span>${SN[p.c]} · ${HD[p.c]}</span></div></div>`;
+ $('#stage').insertBefore(el,$('#stage').firstChild);
+ if(!rev){S.seen.push(id);S.cnt[p.c].seen++}
+ S.rec={id,c:p.c,dur:DUR(id),watch:0,pos:0,reach:0,loops:0,manual:0,pauses:0,pauseMs:0,like:0,save:0,cm:0,sh:0,rev:rev?1:0,d:0,rp:0,cmp:0};S.recs.push(S.rec);S.paused=false;S.lk=lk;
+ $('#pz').style.opacity=0;$('#nl').textContent=kf(lk);$('#nc').textContent=kf(Math.floor(lk/19));$('#bl').classList.remove('act');$('#bs').classList.remove('act');
+ $('#disc').style.background=`conic-gradient(hsl(${h} 90% 55%),#111,hsl(${(h+60)%360} 90% 50%),#111)`;
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{el.classList.remove('in','inb');if(old){old.classList.add(dir<0?'outb':'out');setTimeout(()=>old.remove(),520)}}));
+ bar();play()}
+function bar(){const b=$('#bar');b.classList.remove('go');void b.offsetWidth;b.style.setProperty('--d',S.rec.dur+'s');b.style.animationPlayState='running';b.classList.add('go')}
+function setPause(p){const r=S.rec;if(!r||S.paused===p)return;S.paused=p;if(p){r.pauses++;S.pt=Date.now();stop()}else{r.pauseMs+=Date.now()-S.pt;play()}$('#bar').style.animationPlayState=p?'paused':'running';$('#pz').style.opacity=p?1:0}
+setInterval(()=>{const r=S.rec;if(!r||S.paused||document.hidden||!$('#s2').classList.contains('on'))return;r.watch+=100;r.pos+=100;r.reach=Math.max(r.reach,r.pos);if(r.pos>=r.dur*1000){r.pos=0;r.loops++}},100);
+function adv(dir){if(busy||!S.rec||(dir<0&&S.ptr<=0))return;busy=true;setTimeout(()=>busy=false,560);$('#hint').style.opacity=0;leave();
+ if(dir<0){S.ptr--;show(S.path[S.ptr],-1,1);return}
+ if(S.ptr<S.path.length-1){S.ptr++;show(S.path[S.ptr],1,1);return}
+ if(S.seen.length>=N){reveal();return}
+ const id=nextId();S.path.push(id);S.ptr++;show(id,1,0)}
+function toast(t){const h=$('#hint');h.textContent=t;h.style.opacity=1;clearTimeout(S.th);S.th=setTimeout(()=>h.style.opacity=0,1600)}
+function flash(){const c=cur();c&&c.animate([{transform:'scale(1.04)',filter:'brightness(1.6) saturate(1.5)'},{transform:'none',filter:'none'}],{duration:480})}
+$('#bl').onclick=()=>{const r=S.rec;if(!r)return;r.like=1-r.like;$('#bl').classList.toggle('act',!!r.like);$('#nl').textContent=kf(S.lk+r.like);if(r.like)flash()};
+$('#bs').onclick=()=>{const r=S.rec;if(!r)return;r.save=1-r.save;$('#bs').classList.toggle('act',!!r.save);if(r.save)flash()};
+$('#bc').onclick=()=>{if(S.rec){S.rec.cm++;toast('التعليقات تجريبية في هذه المحاكاة')}};
+$('#bh').onclick=()=>{if(S.rec){S.rec.sh++;toast('المشاركة تجريبية في هذه المحاكاة')}};
+$('#snd').onclick=()=>{try{if(!ac){ac=new(window.AudioContext||window.webkitAudioContext)();mg=ac.createGain();mg.gain.value=$('#vol').value/100;mg.connect(ac.destination)}on=!on;if(on)ac.resume();$('#snd').textContent=on?'إيقاف الصوت':'تفعيل الصوت';$('.top').classList.toggle('on',on);on?play():stop()}catch(e){}};
+$('#vol').oninput=e=>{if(mg)mg.gain.value=e.target.value/100};
+const st=$('#stage');let y0=null,x0=0,mv=false;
+st.addEventListener('pointerdown',e=>{if(e.target.closest('button,input,.nav'))return;y0=e.clientY;x0=e.clientX;mv=false});
+st.addEventListener('pointermove',e=>{if(y0===null)return;let d=e.clientY-y0;if(Math.abs(d)>8)mv=true;if(S.ptr<=0&&d>0)d=0;const c=cur();if(c){c.style.transition='none';c.style.transform=`translateY(${d*.45}px)`}});
+st.addEventListener('pointerup',e=>{if(y0===null)return;const c=cur();if(c){c.style.transition='';c.style.transform=''}const dy=e.clientY-y0,dx=e.clientX-x0;y0=null;
+ if(dy<-55&&Math.abs(dx)<90)adv(1);else if(dy>55&&Math.abs(dx)<90)adv(-1);else if(!mv)setPause(!S.paused)});
+st.addEventListener('pointercancel',()=>{y0=null;const c=cur();if(c){c.style.transition='';c.style.transform=''}});
+st.addEventListener('click',e=>{const b=e.target.closest('.mo');if(!b)return;const d=b.previousElementSibling;d.classList.toggle('open');b.textContent=d.classList.contains('open')?'أقل':'المزيد'});
+st.addEventListener('wheel',e=>{e.preventDefault();if(Math.abs(e.deltaY)>25)adv(e.deltaY>0?1:-1)},{passive:false});
+addEventListener('keydown',e=>{if(!$('#s2').classList.contains('on'))return;if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();adv(1)}else if(e.key==='ArrowUp'){e.preventDefault();adv(-1)}});
+function go(id){document.querySelectorAll('.scr').forEach(s=>{s.classList.remove('vis');setTimeout(()=>{if(!s.classList.contains('vis')&&s.id!==id)s.classList.remove('on')},600)});const n=$('#'+id);n.classList.add('on');requestAnimationFrame(()=>requestAnimationFrame(()=>n.classList.add('vis')));n.scrollTop=0}
+function start(){init();stop();document.querySelectorAll('.card').forEach(c=>c.remove());$('#hint').textContent='اسحب للأعلى للمنشور التالي، أو استخدم عجلة الماوس';$('#hint').style.opacity=1;go('s2');S.path=[ORD[0]];S.ptr=0;show(ORD[0],1,0)}
+$('#go').onclick=start;$('#again').onclick=start;
+function reveal(){stop();S.rec=null;
+ const R=S.recs,base=ORD.slice(0,N),mine=S.seen,bc={},mc={},Wt={};K.forEach(k=>{bc[k]=0;mc[k]=0;Wt[k]=0});base.forEach(i=>bc[P[i].c]++);mine.forEach(i=>mc[P[i].c]++);R.forEach(r=>Wt[r.c]+=r.watch);
+ const chip=c=>`<span class="chip" style="background:hsl(${C[c][1]} 70% 30%)">${C[c][0]}</span>`,sec=ms=>Math.round(ms/1000),
+ strip=(a,cmp)=>`<div class="strip ${cmp?'me':''}">`+a.map((i,j)=>`<span class="${cmp&&P[i].c!==P[cmp[j]].c?'d':''}" style="animation-delay:${j*.05}s;background:hsl(${C[P[i].c][1]} 75% 50%)"></span>`).join('')+`</div>`,
+ up=K.filter(k=>mc[k]>bc[k]).sort((a,b)=>mc[b]-bc[b]-(mc[a]-bc[a])).slice(0,3),dn=K.filter(k=>mc[k]<bc[k]).sort((a,b)=>bc[b]-mc[b]-(bc[a]-mc[a])).slice(0,3),
+ ch=mine.filter((i,j)=>j>=FIX&&P[i].c!==P[base[j]].c).length,
+ tot=R.reduce((a,r)=>a+r.watch,0),avg=tot/R.length,top=K.slice().sort((a,b)=>Wt[b]-Wt[a]).slice(0,5),mx=Wt[top[0]]||1,
+ re=R.filter(r=>r.rp>0).sort((a,b)=>b.rp-a.rp||b.watch-a.watch)[0],
+ lg=R.slice().sort((a,b)=>b.watch/b.dur-a.watch/a.dur)[0],
+ fast=R.filter(r=>r.watch<2000&&!r.rev),tc=K.slice().sort((a,b)=>S.int[b]-S.int[a])[0],
+ times=n=>n+1===2?'مرتين':(n+1)+' مرات';
+ let msg;
+ if(re)msg=re.like?`أعجبك «${P[re.id].t}» وشاهدته ${times(re.rp)} وأمضيت فيه ${sec(re.watch)} ثانية. جمع النظام عدة إشارات معًا، لا الإعجاب وحده، ليقدّر اهتمامك بهذا النوع من المحتوى.`:`لم تضغط إعجابًا على «${P[re.id].t}»، لكنك شاهدته ${times(re.rp)} وأمضيت فيه ${sec(re.watch)} ثانية${re.watch>avg?'، أكثر من متوسط مشاهدتك':''}. لذلك اعتبره النظام إشارة إلى اهتمامك بهذا النوع من المحتوى.`;
+ else msg=`أكثر منشور استحوذ على وقتك نسبةً إلى مدته كان «${P[lg.id].t}»: شاهدت ${sec(lg.watch)} ثانية من أصل ${lg.dur}. لم تُعده، لكن هذه المشاهدة وحدها إشارة يزنها النظام.`;
+ const fz=fast.length?`تجاوزت ${fast.length} منشورات خلال أقل من ثانيتين، من: ${[...new Set(fast.map(r=>r.c))].map(chip).join('')}`:'لم تتجاوز أي منشور بسرعة، وهذه أيضًا إشارة قرأها النظام.';
+ const imp=S.int[tc]>0?`<p><b>أثر ذلك في موجزك</b><br>ظهر لك ${mc[tc]} منشورات من ${chip(tc)} مقابل ${bc[tc]} في الموجز الأول.</p>`:'';
+ $('#rv').innerHTML=`<h1 class="fade">هل لاحظت أن المحتوى بدأ يتغير؟</h1><p class="sub fade" style="animation-delay:.5s">جميع المستخدمين بدأوا من الموجز نفسه. السحب والتجاوز والمشاهدة والإعجاب والحفظ أعطت النظام إشارات، فقدّر اهتماماتك وبدأ يعرض لك محتوى مختلفًا عمّا بدأت به.</p>
+ <div class="fade" style="animation-delay:1s"><div class="lab">الموجز الأول: ما رآه الجميع</div>${strip(base)}<div class="lab">موجزك بعد التخصيص</div>${strip(mine,base)}<div class="lab">الإطارات المحددة هي أماكن تغيّر فيها ما ظهر لك: ${ch} من ${N-FIX} منشورات بعد البداية المشتركة.</div></div>
+ <div class="facts fade" style="animation-delay:1.6s"><p><b>أصبح يظهر لك أكثر</b><br>${up.length?up.map(chip).join(''):'<span>لا تغيّر واضح.</span>'}</p><p><b>أصبح يظهر لك أقل</b><br>${dn.length?dn.map(chip).join(''):'<span>لا تغيّر واضح.</span>'}</p></div>
+ <div class="fade" style="animation-delay:2.1s"><div class="lab">أين ذهب وقتك فعليًا</div>${top.map(k=>`<div class="br"><span>${C[k][0]}</span><i style="width:${Wt[k]/mx*100}%;background:hsl(${C[k][1]} 75% 50%)"></i><b>${sec(Wt[k])} ث</b></div>`).join('')}</div>
+ <div class="facts fade" style="animation-delay:2.5s"><p><b>متوسط مدة مشاهدتك</b><br>${(avg/1000).toFixed(1)} ثانية للمنشور</p><p><b>التجاوز السريع</b><br>${fz}</p><p><b>سلوكك الذي لم يظهر في الإعجاب</b><br>${msg}</p>${imp}</div>
+ <div class="note fade" style="animation-delay:3s">أنت لم تكن تتصفح فقط؛ كنت تعلّم نظام التوصية ما الذي يجذب انتباهك.</div><button class="btn fade" style="animation-delay:3.4s" id="nx">التالي</button>`;
+ go('s3');$('#nx').onclick=final}
+function final(){go('s4');const pts=[...document.querySelectorAll('.pt')];pts.forEach(p=>p.classList.remove('s'));
+ const sc=$('#s4'),chk=()=>pts.forEach(p=>{if(p.getBoundingClientRect().top<innerHeight*.9)p.classList.add('s')});sc.onscroll=chk;setTimeout(chk,500)}
+</script></body></html>
